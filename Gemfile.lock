@@ -66,7 +66,7 @@ GEM
     griddler (1.1.0)
       htmlentities
       rails (>= 3.2.0)
-    griddler-mandrill (1.0.2)
+    griddler-sendgrid (0.0.1)
       griddler
     hike (1.2.3)
     htmlentities (4.3.3)
@@ -179,7 +179,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   foreman
   griddler
-  griddler-mandrill
+  griddler-sendgrid
   jbuilder (~> 2.0)
   jquery-rails
   pg
@@ -194,3 +194,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

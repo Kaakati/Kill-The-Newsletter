@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount_griddler
-  get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
+  get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "sendgrid_head_test_request"
 
   resources :feeds, only: [:create, :show]
 

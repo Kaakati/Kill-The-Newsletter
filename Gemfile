@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.2'
 
 gem 'griddler'
-gem 'griddler-mandrill'
+gem 'griddler-sendgrid'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'foreman'
