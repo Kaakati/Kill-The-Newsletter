@@ -1,0 +1,71 @@
+#+TITLE: Kill the newsletter!
+#+SUBTITLE: /Kill the newsletter!/ is a service that transforms newsletters into RSS feeds.
+
+-----
+
+| *[[https://www.leafac.com/projects/kill-the-newsletter][Documentation]]*   |                                                                             |
+| *License*         | [[https://gnu.org/licenses/gpl-3.0.txt][GNU General Public License Version 3]]                                        |
+| *Code of conduct* | [[http://contributor-covenant.org/version/1/4/][Contributor Covenant v1.4.0]]                                                 |
+| *[[https://git.leafac.com/leafac/kill-the-newsletter][Source]]*          |                                                                             |
+| *Bug reports*     | Write an email to [[mailto:kill-the-newsletter@leafac.com][=kill-the-newsletter@leafac.com=]]                          |
+| *Contributions*   | Send [[https://git-scm.com/docs/git-format-patch][patches]] or [[https://git-scm.com/docs/git-request-pull][pull requests]] via email to [[mailto:kill-the-newsletter@leafac.com][=kill-the-newsletter@leafac.com=]] |
+| *Author*          | [[https://www.leafac.com][Leandro Facchinetti]]                                                         |
+
+-----
+
+#+TOC: headlines
+
+To understand the features and rationale, refer to the [[https://www.kill-the-newsletter.com][service webpage]]. This is
+a technical documentation directed to people that want to [[#contributing][contribute to the
+project]] or [[#deployment][deploy their own instance]].
+
+* Contributing
+  :PROPERTIES:
+  :CUSTOM_ID: contributing
+  :END:
+
+  The recommended way to run the application is using [[http://docs.docker.com/compose/][Docker Compose]]. It sets up
+  everything you need, including the [[https://ngrok.com/][ngrok]] tunnel to make testing incoming
+  e-mails easy.
+
+  This is a pretty standard [[https://rubyonrails.org][Ruby on Rails]] application. The proper [[https://ruby-lang.org][Ruby]] version
+  and dependencies to run are listed on the =Gemfile=.
+
+  The e-mail receiving part of the application works by using the [[http://griddler.io/][Griddler]] gem
+  and the service provided by [[http://www.sendgrid.com/][Sendgrid]] to parse incoming e-mails.
+
+  For that reason, in order to test on your local machine, you need to make your
+  server visible to the world. This is easy to achieve with [[https://ngrok.com/][ngrok]].
+
+  You also need an account on [[http://www.sendgrid.com/][Sendgrid]].  Accounts for developers are free and
+  you most certainly are not going to exceed the free quota.
+
+  For more detailed instructions, read the [[#deployment][deployment]] section. Be sure to
+  specify the address to your local server on [[http://www.sendgrid.com/][Sendgrid]]'s Inbound Mailbox Route
+  Webhook.  If you're using [[https://ngrok.com/][ngrok]] to expose your local server to the world, the
+  address is going to be something like
+  =https://<some-random-characters>.ngrok.com/email_processor=.
+
+* Deployment
+  :PROPERTIES:
+  :CUSTOM_ID: deployment
+  :END:
+
+  This service is currently hosted on [[https://heroku.com][Heroku]]---including their [[https://postgres.heroku.com][Postgres
+  service]]---and [[http://www.sendgrid.com/][Sendgrid]]. This is the setup I'm going to describe here and you
+  should feel free to deploy your own instance. You probably can make some
+  adaptations to fit your needs.
+
+  Start by buying a domain and setting up MX records that points to the [[http://www.sendgrid.com/][Sendgrid]]
+  servers. I recommend using [[https://www.cloudflare.com/][CloudFlare]] as nameserver, so you get [[https://robots.thoughtbot.com/set-up-cloudflare-free-ssl-on-heroku][free TLS
+  support on Heroku]]. I strongly recommend enabling TLS and always enforce it.
+
+  Then, add the domain as an Inbound Domain on [[http://www.sendgrid.com/][Sendgrid]]. Add a catch-all Mailbox
+  Route for the domain so that when the receiving e-mail address matches =*=,
+  [[http://www.sendgrid.com/][Sendgrid]] POSTs to =https://<your-domain>/email_processor=.
+
+  Deploy this application as you would any other [[https://rubyonrails.org][Ruby on Rails]]
+  application. Remember to run the migrations with =heroku run bin/rake
+  db:migrate=.
+
+  Then enjoy the rest of your day.
