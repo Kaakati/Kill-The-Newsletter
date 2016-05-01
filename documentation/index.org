@@ -15,9 +15,10 @@
 
 #+TOC: headlines
 
-To understand the features and rationale, refer to the [[https://www.kill-the-newsletter.com][service webpage]]. This is
-a technical documentation directed to people that want to [[#contributing][contribute to the
-project]] or [[#deployment][deploy their own instance]].
+To understand the features and rationale, refer to the [[https://www.kill-the-newsletter.com][service webpage]].
+
+This is a technical documentation directed to people that want to [[#contributing][contribute to
+the project]] or [[#deployment][deploy their own instance]].
 
 * Contributing
   :PROPERTIES:
